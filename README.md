@@ -103,34 +103,6 @@ Ce projet personnel est né de notre passion commune pour les voyages et de notr
 - [ ] Version mobile native (React Native)
 - [ ] Intégration de partenariats (hébergements, compagnies aériennes)
 
-## Installation et Configuration (Pour Développeurs)
-
-```bash
-# Cloner le dépôt
-git clone https://github.com/username/travelstories.git
-cd travelstories
-
-# Installation des dépendances frontend (si nécessaire, pour les packages comme Leaflet)
-cd client
-npm install
-
-# Installation des dépendances backend
-cd ../server
-npm install
-
-# Configuration des variables d'environnement
-cp .env.example .env
-# Éditer le fichier .env avec vos clés API (notamment votre clé Mapbox) et configurations
-
-# Lancer l'application en développement
-# Terminal 1 - Backend
-cd server
-npm run dev
-
-# Terminal 2 - Frontend (si vous utilisez un serveur de développement comme live-server)
-cd client
-npx live-server
-```
 
 ## Contributeurs
 - Daniel
