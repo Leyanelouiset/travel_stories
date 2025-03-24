@@ -108,8 +108,6 @@ Ce projet personnel est né de notre passion commune pour les voyages et de notr
 - Daniel
 - Leyane
 
-## Licence
-Ce projet est sous licence [À DÉTERMINER] - voir le fichier LICENSE pour plus de détails.
 
 ---
 
