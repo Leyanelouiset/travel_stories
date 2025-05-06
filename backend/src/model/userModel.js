@@ -1,7 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-
-
-
 const prisma = new PrismaClient();
 
 class User {
@@ -10,7 +7,6 @@ class User {
   }
 
   static async update(id, data) {
-    //update (fonctionnelle)
     try {
       console.log("ID reçu:", id, "Type:", typeof id);
       console.log("Données reçues:", data);
