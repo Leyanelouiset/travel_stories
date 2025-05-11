@@ -1,7 +1,8 @@
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
 const prisma = new PrismaClient();
 
-class User {
+export class User {
   static async findAll() {
     return await prisma.users.findMany();
   }
@@ -23,7 +24,7 @@ class User {
         password: hashedPassword,
       };
 
-      const user = await prisma.users.update({
+      const user = await prisma.Users.update({
         where: { id: id },
         data: updateData,
       });
@@ -41,34 +42,34 @@ class User {
 
   static async delete(id) {
     //delete
-    return await prisma.users.delete({
+    return await prisma.Users.delete({
       where: { id: id },
     });
   }
 
   static async register(data) {
     try {
-      const existingUser = await prisma.users.findFirst({
-        where: { mail: data.mail },
+      const existingUser = await prisma.Users.findFirst({
+        where: { email: data.email },
       });
 
       if (existingUser) {
-        throw new Error(
-          "Cet email est déjà utilisé. Veuillez choisir un autre."
-        );
+        return {
+          success: false,
+          message: "Cet email est déjà utilisé. Veuillez choisir un autre.",
+        };
       }
 
       const hashedPassword = await bcrypt.hash(data.password, 10); // hashé le mot de passe de l'utilisateur
 
       const user = await prisma.users.create({
         data: {
+          email: data.email,
           name: data.name,
-          lastname: data.lastname,
-          mail: data.mail,
           password: hashedPassword,
         },
       });
-      return { user };
+      //return { user };
     } catch (e) {
       console.error("Erreur lors de l'inscription :", e.message);
       throw new Error("Échec de l'inscription.");
@@ -116,5 +117,4 @@ class User {
     }
   }
 }
-
 export default User;
