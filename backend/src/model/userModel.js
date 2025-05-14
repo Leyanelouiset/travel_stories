@@ -41,9 +41,9 @@ export class User {
   }
 
   static async delete(id) {
-    //delete
+    const idUser = parseInt(id, 10)
     return await prisma.Users.delete({
-      where: { id: id },
+      where: { id: idUser },
     });
   }
 

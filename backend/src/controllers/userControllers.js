@@ -73,7 +73,7 @@ export async function updateUser(req, res) {
 
 export async function deleteUser(req, res) {
   try {
-    const userId = req.params.id;
+    const userId = parseInt(req.params.id, 10);
 
     const deletedUser = await User.delete(userId);
 
