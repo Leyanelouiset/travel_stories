@@ -55,7 +55,7 @@ class Post {
 
 static async create(data){
   try{
-if(!data.text|| !data.user_id){
+if(!data.text||!data.user_id){
   throw new Error ("Le texte du post et l'ID de l'utilisateur sont requis");
       
 }
@@ -84,4 +84,53 @@ if(!data.text|| !data.user_id){
       throw error;
     }
   }
+  static async update(id, data) {
+    try {
+      if (!id || isNaN(Number(id))) {
+        throw new Error("ID invalide");
+      }
+      
+     
+      const updatedPost = await prisma.posts.update({
+        where: {
+          id: Number(id),
+        },
+        data,
+        // Inclure les données de l'utilisateur dans le résultat
+        include: {
+          users: true,
+        },
+      });
+      
+      return updatedPost;
+    } catch (error) {
+      console.error(`Erreur lors de la mise à jour du post ${id} :`, error.message);
+      throw error;
+    }
+  }
+    static async delete(id) {
+    try {
+      // Vérification que l'ID est valide
+      if (!id || isNaN(Number(id))) {
+        throw new Error("ID invalide");
+      }
+      
+      // Suppression du post dans la base de données
+      const deletedPost = await prisma.posts.delete({
+        where: {
+          id: Number(id),
+        },
+      });
+      
+      return deletedPost;
+    } catch (error) {
+      console.error(`Erreur lors de la suppression du post ${id} :`, error.message);
+      throw error;
+    }
+  }
 }
+
+export default Post;
+
+
+  

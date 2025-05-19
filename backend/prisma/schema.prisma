@@ -8,8 +8,35 @@ datasource db {
 }
 
 model Users {
-  id       Int     @id @default(autoincrement())
-  email    String? @db.VarChar(50)
-  name     String? @db.VarChar(50)
+  id       Int       @id @default(autoincrement())
+  email    String?   @db.VarChar(50)
+  name     String?   @db.VarChar(50)
   password String?
+  posts    Post[]   
+  comments Comment[] 
+}
+
+model Post {
+  id        Int       @id @default(autoincrement())
+  text      String    
+  image     String?   
+  createdAt DateTime  @default(now()) 
+  updatedAt DateTime  @updatedAt      
+  userId    Int     
+  users     Users     @relation(fields: [userId], references: [id]) 
+  comments  Comment[] 
+  @@index([userId]) // Index pour améliorer les performances des requêtes
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  text      String   
+  createdAt DateTime @default(now()) // Date de création automatique
+  userId    Int    
+  postId    Int    
+  users     Users    @relation(fields: [userId], references: [id]) 
+  post      Post     @relation(fields: [postId], references: [id]) 
+
+  @@index([userId]) // Index pour améliorer les performances des requêtes
+  @@index([postId]) 
 }
