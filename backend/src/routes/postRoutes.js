@@ -1,19 +1,14 @@
 import express from "express";
-import {
-  getAllPosts,
-  getPostById,
-  createPost,
-  updatePost,
-  deletePost,
-} from "../controllers/postControllers.js";
+import PostController from "../controllers/postControllers.js";
 
 const router = express.Router();
+const postController = new PostController();
 
 // Routes pour les posts
-router.get("/posts", getAllPosts);
-router.get("/posts/:id", getPostById);
-router.post("/posts", createPost);
-router.put("/posts/update/:id", updatePost);
-router.delete("/posts/delete/:id", deletePost);
+router.get("/posts", postController.index);
+router.get("/posts/:id", postController.show);
+router.post("/posts", postController.create);
+router.put("/posts/update/:id", postController.update);
+router.delete("/posts/delete/:id", postController.delete);
 
 export { router as posts };
